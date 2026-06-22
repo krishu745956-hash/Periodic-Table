@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fdfbf7;
+  background-image: radial-gradient(#c8bfaa 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: #2d2d2d;
+  font-family: 'Patrick Hand', cursive;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Focus ring for keyboard navigation */
+:focus-visible {
+  outline: 2px solid #2d5da1;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Wobbly border-radius utilities */
+.wobbly {
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+.wobbly-md {
+  border-radius: 15px 255px 15px 225px / 225px 15px 255px 15px;
+}
+.wobbly-sm {
+  border-radius: 8px 30px 8px 30px / 30px 8px 30px 8px;
+}
+
+/* Hard offset shadows — no blur, solid offset only */
+.shadow-sketch {
+  box-shadow: 4px 4px 0px 0px #2d2d2d;
+}
+.shadow-sketch-sm {
+  box-shadow: 2px 2px 0px 0px #2d2d2d;
+}
+.shadow-sketch-lg {
+  box-shadow: 6px 6px 0px 0px #2d2d2d;
+}
+
+/* Category glow pulse — single entrance pulse, not infinite */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 3px 3px 0px 0px #2d2d2d,
+                0 0 6px 2px var(--cat-color, #3b82f6)44;
+  }
+  50% {
+    box-shadow: 3px 3px 0px 0px #2d2d2d,
+                0 0 14px 5px var(--cat-color, #3b82f6)88;
+  }
+}
+.card-pulse {
+  animation: pulse-glow 3s ease-in-out 1;
+}
+
+/* Pencil line scribble-in animation */
+@keyframes scribble-in {
+  from { stroke-dashoffset: 500; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* Skeleton shimmer for loading states */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton-shimmer {
+  background: linear-gradient(90deg, #e8e3d8 25%, #f0ebe0 50%, #e8e3d8 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Tooltip entrance — slides up and scales in on group hover */
+.tooltip-entrance {
+  opacity: 0;
+  transform: translateX(-50%) scale(0.9);
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+  pointer-events: none;
+}
+.group:hover .tooltip-entrance {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+/* Page load sketch-fade for elements */
+@keyframes sketch-fade {
+  from { opacity: 0; transform: translateY(8px) rotate(-0.5deg); }
+  to { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+.sketch-in {
+  animation: sketch-fade 0.4s ease-out forwards;
+}
+
+/* Dropdown fade */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fade-in 0.15s ease-out;
+}
+
+/* Slide down for mobile nav */
+@keyframes slide-down {
+  from { opacity: 0; max-height: 0; }
+  to { opacity: 1; max-height: 300px; }
+}
+.animate-slide-down {
+  animation: slide-down 0.25s ease-out;
+}
+
+@keyframes jiggle {
+  0%, 100% { transform: rotate(0deg) scale(1.15); }
+  25% { transform: rotate(-1.5deg) scale(1.15); }
+  75% { transform: rotate(1.5deg) scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-pulse, .sketch-in, .animate-fade-in, .animate-slide-down, .skeleton-shimmer {
+    animation: none;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background: #f0ebe0;
+}
+::-webkit-scrollbar-thumb {
+  background: #c8bfaa;
+  border-radius: 4px;
+  border: 2px solid #fdfbf7;
+}
+::-webkit-scrollbar-track {
+  background: #f0ebe0;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
