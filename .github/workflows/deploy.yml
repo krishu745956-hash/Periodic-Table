@@ -23,7 +23,8 @@ jobs:
         with:
           node-version: 22
 
-      - run: npm ci
+      - run: rm -f package-lock.json
+      - run: npm install --no-audit
       - run: npm run build
 
       - uses: actions/upload-pages-artifact@v3
